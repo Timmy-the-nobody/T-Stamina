@@ -1,4 +1,4 @@
-# t-stamina
+# T-Stamina
 
 This is a simple stamina script that can be used on most gamemodes, but was mainly designed for roleplay and survival gamemodes. It includes:
 - A simple HUD, that can be disabled
