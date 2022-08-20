@@ -6,7 +6,7 @@ This is a simple stamina script that can be used on most gamemodes, but was main
 - Sprint/jump/crouch/punch restrictions on exhaust
 
 ## 📦 Installation
-- Download LuaRun and add it in the `/Server/Packages/` folder on your server
+- Download T-Stamina and add it in the `/Server/Packages/` folder on your server
 - Then go to `/Server/Config.toml` and add `t-stamina` (or the package name) in the `packages` array.
 
 ## 🛠️ Configuration
