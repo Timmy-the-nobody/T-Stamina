@@ -1,7 +1,7 @@
-function updateStamina( iNewStamina ) {
-    document.getElementById( "bar" ).style.width = iNewStamina + "%";
+let dBar = document.getElementById( "bar" )
+
+function UpdateStamina( iNewStamina ) {
+    dBar.style.width = iNewStamina + "%";
 }
 
-Events.Subscribe( "updateStamina", function( iNewStamina ) {
-    updateStamina( iNewStamina );
-} )
+Events.Subscribe( "updateStamina", UpdateStamina )
