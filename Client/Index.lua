@@ -10,6 +10,6 @@ local wHUD = WebUI( "Main HUD", "file:///hud/index.html" )
 
 ]]--
 
-Events.Subscribe( "StaminaChanged", function( iStamina )
+Events.SubscribeRemote( "StaminaChanged", function( iStamina )
     wHUD:CallEvent( "updateStamina", iStamina )
 end )
