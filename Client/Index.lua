@@ -1,15 +1,18 @@
-if not TStamina.HUD then
-    return
+if TStamina.HUD then
+    TStamina._WebUI = WebUI("Stamina HUD", "file:///hud/index.html")
 end
 
-local wHUD = WebUI( "Main HUD", "file:///hud/index.html" )
+--[[ StaminaChanged ]]--
+Events.SubscribeRemote("StaminaChanged", function(iStamina)
+    local pPlayer = Client.GetLocalPlayer()
+    if not pPlayer or not pPlayer:IsValid() then return end
 
---[[
+    local eChar = pPlayer:GetControlledCharacter()
+    if not eChar or not eChar:IsValid() then return end
 
-    StaminaChanged
+    eChar:SetValue("Stamina", iStamina)
 
-]]--
-
-Events.SubscribeRemote( "StaminaChanged", function( iStamina )
-    wHUD:CallEvent( "updateStamina", iStamina )
-end )
+    if TStamina._WebUI then
+        TStamina._WebUI:CallEvent("updateStamina", iStamina)
+    end
+end)

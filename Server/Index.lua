@@ -1,2 +1,2 @@
-Package.Require( "Functions.lua" )
-Package.Require( "Events.lua" )
+Package.Require("Functions.lua")
+Package.Require("Events.lua")

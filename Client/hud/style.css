@@ -9,20 +9,20 @@ html {
     display: flex;
     top: 48vh;
     left: 2vh;
-    transform: skew( -16deg );
+    transform: skew(-16deg);
 }
 
 #icon {
     width: 2vh;
     background-color: #e67e22;
-    padding: .2vh;
+    padding: 0.2vh;
 }
 
 #bar_bg {
     width: 100%;
     background-color: #2d3436;
     overflow: hidden;
-    margin: .6vh;
+    margin: 0.6vh;
 }
 
 #bar {

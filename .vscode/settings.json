@@ -1,0 +1,14 @@
+{
+    "Lua.diagnostics.globals": [
+        "Character",
+        "NanosMath",
+        "GaitMode",
+        "StanceMode",
+        "FallingMode",
+        "Server",
+        "Events",
+        "Package",
+        "Client",
+        "WebUI"
+    ]
+}
