@@ -1,12 +1,7 @@
 local iExhaustJumpPower = math.max((TStamina.ExhaustJumpPower or 0), 0)
 local iDefaultJumpPower = math.max((TStamina.DefaultJumpPower or 450), 0)
 
---[[
-
-    Character:SetStamina
-
-]]--
-
+--[[ Character:SetStamina ]]--
 function Character:SetStamina(iStamina)
     if type(iStamina) ~= "number" then return end
 

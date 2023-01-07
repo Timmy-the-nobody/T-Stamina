@@ -1,4 +1,4 @@
 TStamina = TStamina or {}
 
-Package.Require( "Config.lua" )
-Package.Require( "Functions.lua" )
+Package.Require("Config.lua")
+Package.Require("Functions.lua")
