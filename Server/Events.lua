@@ -21,9 +21,7 @@ local function onGaitModeChanged(eChar, iOldState, iNewState)
         tSprintingChars[eChar] = true
         tRecoveringChars[eChar] = nil
 
-        if (eChar:GetVelocity():Size() > 100) then
-            eChar:AddStamina(-iSprintCost)
-        end
+        eChar:AddStamina(-iSprintCost)
         return
     end
 
