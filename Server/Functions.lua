@@ -1,23 +1,15 @@
 local iExhaustJumpPower = math.max((TStamina.ExhaustJumpPower or 0), 0)
 local iDefaultJumpPower = math.max((TStamina.DefaultJumpPower or 450), 0)
 
---[[ Character:SetStamina ]]--
-function Character:SetStamina(iStamina)
-    if type(iStamina) ~= "number" then return end
-
-    iStamina = math.floor(iStamina)
-
-    if (iStamina == self:GetStamina()) then return end
-
-    self:SetValue("Stamina", iStamina)
-
+-- Internal function to update the states of the character based on their stamina
+local function characterStaminaUpdate(eChar, iStamina)
     -- Sprint
     if TStamina.SprintCost then
         if (iStamina <= TStamina.SprintCost) then
-            self:SetCanSprint(false)
+            eChar:SetCanSprint(false)
         else
-            if not self:GetCanSprint() then
-                self:SetCanSprint(true)
+            if not eChar:GetCanSprint() then
+                eChar:SetCanSprint(true)
             end
         end
     end
@@ -25,10 +17,10 @@ function Character:SetStamina(iStamina)
     -- Jump
     if TStamina.JumpCost then
         if (iStamina <= TStamina.JumpCost) then
-            self:SetJumpZVelocity(iExhaustJumpPower)
+            eChar:SetJumpZVelocity(iExhaustJumpPower)
         else
-            if (self:GetJumpZVelocity() ~= iDefaultJumpPower) then
-                self:SetJumpZVelocity(iDefaultJumpPower)
+            if (eChar:GetJumpZVelocity() ~= iDefaultJumpPower) then
+                eChar:SetJumpZVelocity(iDefaultJumpPower)
             end
         end
     end
@@ -36,10 +28,10 @@ function Character:SetStamina(iStamina)
     -- Punch
     if TStamina.PunchCost then
         if (iStamina <= TStamina.PunchCost) then
-            self:SetCanPunch(false)
+            eChar:SetCanPunch(false)
         else
-            if not self:GetCanPunch() then
-                self:SetCanPunch(true)
+            if not eChar:GetCanPunch() then
+                eChar:SetCanPunch(true)
             end
         end
     end
@@ -47,28 +39,50 @@ function Character:SetStamina(iStamina)
     -- Crouch
     if TStamina.CrouchCost then
         if (iStamina < TStamina.CrouchCost) then
-            self:SetCanCrouch(false)
+            eChar:SetCanCrouch(false)
         else
-            if not self:GetCanCrouch() then
-                self:SetCanCrouch(true)
+            if not eChar:GetCanCrouch() then
+                eChar:SetCanCrouch(true)
             end
         end
     end
+end
+
+---`🔹 Server`<br>
+---Sets the stamina of the character, clamped between 0 and 100
+---@param iStamina integer @The stamina to set
+---@return boolean @Returns true if the stamina was changed, false if not
+---
+function Character:SetStamina(iStamina)
+    if (type(iStamina) ~= "number") then
+        return false
+    end
+
+    iStamina = NanosMath.Clamp(math.floor(iStamina), 0, 100)
+
+    if (iStamina == self:GetStamina()) then
+        return false
+    end
+
+    self:SetValue("Stamina", iStamina, false)
+
+    characterStaminaUpdate(self, iStamina)
 
     local pPlayer = self:GetPlayer()
     if pPlayer and pPlayer:IsValid() then
         Events.CallRemote("StaminaChanged", pPlayer, iStamina)
     end
+
+    return true
 end
 
---[[ Character:AddStamina ]]--
+---`🔹 Server`<br>
+---Adds stamina to the character
+---Can be used to subtract stamina by passing a negative number
+---@param iStamina number @The amount of stamina to add/remove
+---@return nil
+---
 function Character:AddStamina(iStamina)
     if (type(iStamina) ~= "number") then return end
-
-    local iCur = self:GetStamina()
-    local iNew = NanosMath.Clamp(math.floor(iCur + iStamina), 0, 100)
-
-    if (iCur ~= iNew) then
-        self:SetStamina(iNew)
-    end
+    self:SetStamina(self:GetStamina() + iStamina)
 end

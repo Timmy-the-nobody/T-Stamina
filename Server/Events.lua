@@ -2,12 +2,11 @@ local tSprintingChars = {}
 local tRecoveringChars = {}
 
 local fNextSprintTick = 0
+local iSprintCost = NanosMath.Clamp((TStamina.SprintCost or 1), 1, 100)
 local iSprintPing = math.max((TStamina.SprintPing or 1 ), 1)
 
 local fNextRecoverTick = 0
-local iSprintCost = NanosMath.Round((TStamina.SprintCost or 1), 1, 100)
-
-local iRecoverAmount = NanosMath.Round((TStamina.RecoverAmount or 1), 1, 100)
+local iRecoverAmount = NanosMath.Clamp((TStamina.RecoverAmount or 1), 1, 100)
 local iRecoverPing = math.max((TStamina.RecoverPing or 1), 1)
 
 --[[ Character Spawn ]]--

@@ -10,5 +10,9 @@
         "Package",
         "Client",
         "WebUI"
+    ],
+    "Lua.diagnostics.disable": [
+        "param-type-mismatch",
+        "missing-parameter"
     ]
 }
